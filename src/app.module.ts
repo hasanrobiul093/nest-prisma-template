@@ -19,9 +19,9 @@ import envConfig from './config/env.config';
     }),
     AuthModule,
     UserModule,
-    CloudinaryModule
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

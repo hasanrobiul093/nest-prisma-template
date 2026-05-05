@@ -8,7 +8,6 @@ import {
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-
 import type { Cache } from 'cache-manager';
 
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -21,7 +20,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 export class CacheInterceptor implements NestInterceptor {
   constructor(
     @Inject(CACHE_MANAGER)
-    private cacheManager: Cache,  
+    private cacheManager: Cache,
   ) {}
 
   async intercept(

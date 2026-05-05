@@ -3,16 +3,15 @@ import { v2 as cloudinary } from 'cloudinary';
 // import { IEnv } from 'src/config/env.config';
 
 export const CloudinaryProvider = {
-    provide: 'CLOUDINARY',
-    inject: [ConfigService],
-    useFactory: (configService: ConfigService) => {
+  provide: 'CLOUDINARY',
+  inject: [ConfigService],
+  useFactory: (configService: ConfigService) => {
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
 
-        cloudinary.config({
-            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-            api_key: process.env.CLOUDINARY_API_KEY,
-            api_secret: process.env.CLOUDINARY_API_SECRET,
-        });
-
-        return cloudinary;
-    },
+    return cloudinary;
+  },
 };

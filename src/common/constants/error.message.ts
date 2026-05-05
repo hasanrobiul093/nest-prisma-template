@@ -32,14 +32,14 @@ export const ERROR_MESSAGES = {
   VALIDATION: {
     VALIDATION_FAILED: 'Validation failed',
     INVALID_INPUT: 'Invalid input data',
-    REQUIRED_FIELD: 'This field is required'
+    REQUIRED_FIELD: 'This field is required',
   },
 
   // File Upload
   FILEUPLOAD: {
     FILE_TOO_LARGE: 'File size exceeds the maximum allowed size',
     INVALID_FILE_TYPE: 'Invalid file type',
-    UPLOAD_FAILED: 'File upload failed'
+    UPLOAD_FAILED: 'File upload failed',
   },
 
   // Database
@@ -67,6 +67,6 @@ export const ERROR_MESSAGES = {
   GENERAL: {
     INTERNAL_SERVER_ERROR: 'Internal server error. Please try again later',
     SERVICE_UNAVAILABLE: 'Service temporarily unavailable',
-    NOT_IMPLEMENTED: 'This feature is not yet implemented'
+    NOT_IMPLEMENTED: 'This feature is not yet implemented',
   },
 };

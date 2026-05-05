@@ -1,13 +1,13 @@
-import { Module } from "@nestjs/common";
-import { JwtModule } from "@nestjs/jwt";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { PassportModule } from "@nestjs/passport";
+import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
 
-import { AuthService } from "./auth.service";
-import { PrismaModule } from "src/prisma/prisma.module";
-import { AtStrategy } from "./strategie/access-token.strategy";
-import { AuthController } from "./auth.controller";
-import { IEnv } from "src/config/env.config";
+import { AuthService } from './auth.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
+import { AtStrategy } from './strategie/access-token.strategy';
+import { AuthController } from './auth.controller';
+import { IEnv } from 'src/config/env.config';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { IEnv } from "src/config/env.config";
     ConfigModule,
 
     // ✅ VERY IMPORTANT
-    PassportModule.register({ defaultStrategy: "jwt" }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
 
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -23,7 +23,7 @@ import { IEnv } from "src/config/env.config";
       useFactory: (configService: ConfigService) => ({
         secret: process.env.JWT_SECRET!,
         signOptions: {
-          expiresIn: "7d",
+          expiresIn: '7d',
         },
       }),
     }),
@@ -32,4 +32,4 @@ import { IEnv } from "src/config/env.config";
   providers: [AuthService, AtStrategy],
   exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

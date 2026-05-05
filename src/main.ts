@@ -3,9 +3,18 @@ import { ValidationPipe, VersioningType, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters';
-import { LoggingInterceptor, TransformInterceptor } from './common/interceptors';
-import { getAvailablePort, initializeAPM, setupRateLimiting, setupRequestLogging, setupSecurity, setupSwagger } from './common/server/server.main.file';
-
+import {
+  LoggingInterceptor,
+  TransformInterceptor,
+} from './common/interceptors';
+import {
+  getAvailablePort,
+  initializeAPM,
+  setupRateLimiting,
+  setupRequestLogging,
+  setupSecurity,
+  setupSwagger,
+} from './common/server/server.main.file';
 
 export async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -29,7 +38,10 @@ export async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalInterceptors(new LoggingInterceptor(), new TransformInterceptor());
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(),
+    new TransformInterceptor(),
+  );
 
   setupRateLimiting(app, configService, nodeEnv);
   setupRequestLogging(app, logger);

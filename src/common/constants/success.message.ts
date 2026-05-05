@@ -6,7 +6,7 @@ export const SUCCESS_MESSAGES = {
     LOGOUT_SUCCESS: 'Logout successful',
     EMAIL_VERIFIED: 'Email verified successfully',
     PASSWORD_RESET: 'Password reset successfully',
-    OTP_SENT: 'OTP sent successfully'
+    OTP_SENT: 'OTP sent successfully',
   },
 
   // User
@@ -14,7 +14,7 @@ export const SUCCESS_MESSAGES = {
     PROFILE_UPDATED: 'Profile updated successfully',
     USER_CREATED: 'User created successfully',
     USER_UPDATED: 'User updated successfully',
-    USER_DELETED: 'User deleted successfully'
+    USER_DELETED: 'User deleted successfully',
   },
 
   // Booking
@@ -23,19 +23,19 @@ export const SUCCESS_MESSAGES = {
     BOOKING_ACCEPTED: 'Booking accepted',
     BOOKING_REJECTED: 'Booking rejected',
     BOOKING_COMPLETED: 'Booking completed',
-    BOOKING_CANCELLED: 'Booking cancelled'
+    BOOKING_CANCELLED: 'Booking cancelled',
   },
 
   // Payment
   PAYMENT: {
     PAYMENT_SUCCESS: 'Payment processed successfully',
-    PAYMENT_REFUNDED: 'Payment refunded successfully'
+    PAYMENT_REFUNDED: 'Payment refunded successfully',
   },
 
   // Review
   REVIEW: {
     REVIEW_SUBMITTED: 'Review submitted successfully',
-    REVIEW_UPDATED: 'Review updated successfully'
+    REVIEW_UPDATED: 'Review updated successfully',
   },
 
   // File
@@ -49,5 +49,5 @@ export const SUCCESS_MESSAGES = {
     OPERATION_SUCCESS: 'Operation completed successfully',
     DATA_SAVED: 'Data saved successfully',
     DATA_DELETED: 'Data deleted successfully',
-  }
+  },
 };

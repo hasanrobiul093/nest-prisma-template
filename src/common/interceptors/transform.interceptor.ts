@@ -6,37 +6,47 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-export interface Response<T> {
-  data: T;
-  statusCode: number;
-  timestamp: string;
-  path: string;
-}
+import { ApiResponse } from '../helpers/api-response.helper';
 
 /**
  * Transform Interceptor
- * Wraps all successful responses in a standard format
+ * Detects if the controller already returned an ApiResponse-shaped object.
+ * - If YES → passes it through unchanged (no double-wrapping).
+ * - If NO  → wraps the raw payload in the standard ApiResponse shape.
  */
 @Injectable()
-export class TransformInterceptor<T> implements NestInterceptor<
-  T,
-  Response<T>
-> {
+export class TransformInterceptor<T>
+  implements NestInterceptor<T, ApiResponse<T>>
+{
   intercept(
     context: ExecutionContext,
     next: CallHandler,
-  ): Observable<Response<T>> {
-    const request = context.switchToHttp().getRequest();
+  ): Observable<ApiResponse<T>> {
     const statusCode = context.switchToHttp().getResponse().statusCode;
 
     return next.handle().pipe(
-      map((data) => ({
-        data,
-        statusCode,
-        timestamp: new Date().toISOString(),
-        path: request.url,
-      })),
+      map((payload) => {
+        // Already in standard shape → pass through as-is
+        if (
+          payload !== null &&
+          typeof payload === 'object' &&
+          'statusCode' in payload &&
+          'message' in payload &&
+          'data' in payload &&
+          'timestamp' in payload
+        ) {
+          return payload as ApiResponse<T>;
+        }
+
+        // Raw data → wrap in standard shape
+        return {
+          statusCode,
+          message: 'Success',
+          meta: null,
+          data: payload ?? null,
+          timestamp: new Date().toISOString(),
+        } as ApiResponse<T>;
+      }),
     );
   }
 }

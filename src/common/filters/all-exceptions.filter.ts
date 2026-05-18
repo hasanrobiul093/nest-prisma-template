@@ -10,7 +10,7 @@ import { Request, Response } from 'express';
 
 /**
  * All Exceptions Filter
- * Catches all unhandled exceptions
+ * Catch-all for any unhandled exceptions — returns the standard ApiResponse shape.
  */
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -31,20 +31,17 @@ export class AllExceptionsFilter implements ExceptionFilter {
         ? exception.message
         : 'Internal server error';
 
-    const errorResponse = {
-      statusCode: status,
-      timestamp: new Date().toISOString(),
-      path: request.url,
-      method: request.method,
-      message,
-    };
-
-    // Log error
     this.logger.error(
-      `${request.method} ${request.url} - Status: ${status}`,
+      `${request.method} ${request.url} - ${status}`,
       exception instanceof Error ? exception.stack : exception,
     );
 
-    response.status(status).json(errorResponse);
+    response.status(status).json({
+      statusCode: status,
+      message,
+      meta: null,
+      data: null,
+      timestamp: new Date().toISOString(),
+    });
   }
 }

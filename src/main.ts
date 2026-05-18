@@ -27,6 +27,7 @@ export async function bootstrap() {
 
   const port = await getAvailablePort(configService.get<number>('PORT', 3000));
 
+  // Global prefix: all routes are served under /api/v1/<route>
   app.setGlobalPrefix('api');
 
   app.enableVersioning({

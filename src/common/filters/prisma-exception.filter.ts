@@ -1,12 +1,11 @@
 import { ArgumentsHost, Catch, HttpStatus, Logger } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { Prisma } from '@prisma/client';
-// import { Prisma } from '@prisma/client';
 import { Response } from 'express';
 
 /**
  * Prisma Exception Filter
- * Handles Prisma database errors and converts them to HTTP responses
+ * Converts Prisma database errors to standard ApiResponse HTTP responses.
  */
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaExceptionFilter extends BaseExceptionFilter {
@@ -24,7 +23,7 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
       case 'P2002':
         // Unique constraint violation
         status = HttpStatus.CONFLICT;
-        message = `Duplicate field value: ${this.extractFieldFromMeta(exception.meta)}`;
+        message = `Duplicate value: ${this.extractFieldFromMeta(exception.meta)}`;
         break;
 
       case 'P2025':
@@ -46,7 +45,6 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
         break;
 
       default:
-        // Unknown Prisma error
         this.logger.error(
           `Prisma error: ${exception.code} - ${exception.message}`,
           exception.stack,
@@ -57,8 +55,9 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
     response.status(status).json({
       statusCode: status,
       message,
+      meta: null,
+      data: null,
       timestamp: new Date().toISOString(),
-      path: request.url,
     });
   }
 

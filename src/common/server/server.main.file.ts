@@ -137,13 +137,36 @@ export function setupSwagger(app: any, nodeEnv: string, port: number): void {
   if (nodeEnv === 'production') return;
 
   const config = new DocumentBuilder()
-    .setTitle('InvestoMetrics Backend API')
+    .setTitle('NestJS Prisma Template API')
+    .setDescription(
+      'A production-ready NestJS + Prisma API template.\n\n' +
+        '**Base URL:** `http://localhost:{port}/api/v1`\n\n' +
+        '**Auth:** Use the `POST /api/v1/auth/login` endpoint to obtain a Bearer token, ' +
+        'then click **Authorize** above.',
+    )
     .setVersion('1.0.0')
-    .addBearerAuth()
+    .addServer(`http://localhost:${port}`, 'Local Development')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Enter your JWT access token',
+      },
+      'access-token',
+    )
+    .addTag('Auth', 'Authentication & authorization endpoints')
+    .addTag('User', 'User management endpoints')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+      tagsSorter: 'alpha',
+      operationsSorter: 'alpha',
+    },
+  });
 
   new Logger('Swagger').log(`Swagger: http://localhost:${port}/docs`);
 }

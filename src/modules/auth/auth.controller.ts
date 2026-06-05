@@ -60,7 +60,7 @@ export class AuthController {
     return sendResponse(HttpStatus.OK, 'Token refreshed successfully', result);
   }
 
-  @ApiBearerAuth()
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Get('me')
   @HttpCode(HttpStatus.OK)

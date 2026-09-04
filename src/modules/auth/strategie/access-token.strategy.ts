@@ -1,5 +1,5 @@
 import {
-  BadRequestException,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -25,28 +25,31 @@ export class AtStrategy extends PassportStrategy(JwtStrategy, 'jwt') {
   }
 
   async validate(payload: any) {
+    const userId = payload.sub || payload.id || payload.userId;
+
+    if (!userId) {
+      throw new UnauthorizedException('Invalid token payload');
+    }
+
     const user = await this.prisma.user.findUnique({
-      where: { userId: payload.sub },
+      where: { userId },
     });
 
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
 
-    if (user.role === 'ELEVATOR' && user.verifidStatus === 'REQUEST') {
-      throw new BadRequestException(
-        'You are not approved. Please contact admin',
-      );
-    }
-
-    if (user.verifidStatus === 'SUSPEND') {
-      throw new UnauthorizedException('Account suspended');
+    if (user.status === 'SUSPEND') {
+      throw new ForbiddenException('Account suspended');
     }
 
     return {
+      id: user.userId,
       userId: user.userId,
+      sub: user.userId,
       email: user.email,
       role: user.role,
+      status: user.status,
     };
   }
 }

@@ -146,6 +146,7 @@ export function setupSwagger(app: any, nodeEnv: string, port: number): void {
     )
     .setVersion('1.0.0')
     .addServer(`http://localhost:${port}`, 'Local Development')
+    .addServer('/', 'Current Host')
     .addBearerAuth(
       {
         type: 'http',
@@ -155,6 +156,7 @@ export function setupSwagger(app: any, nodeEnv: string, port: number): void {
       },
       'access-token',
     )
+    .addTag('Base', 'Base API & server health check')
     .addTag('Auth', 'Authentication & authorization endpoints')
     .addTag('User', 'User management endpoints')
     .build();

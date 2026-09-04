@@ -7,12 +7,14 @@ import { AuthService } from './auth.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { AtStrategy } from './strategie/access-token.strategy';
 import { AuthController } from './auth.controller';
+import { MailModule } from '../mail/mail.module';
 import { IEnv } from 'src/config/env.config';
 
 @Module({
   imports: [
     PrismaModule,
     ConfigModule,
+    MailModule,
 
     // ✅ VERY IMPORTANT
     PassportModule.register({ defaultStrategy: 'jwt' }),
@@ -20,12 +22,15 @@ import { IEnv } from 'src/config/env.config';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        secret: process.env.JWT_SECRET!,
-        signOptions: {
-          expiresIn: '7d',
-        },
-      }),
+      useFactory: (configService: ConfigService) => {
+        const env = configService.get<IEnv>('env');
+        return {
+          secret: env?.JWT_CONFIG.JWT_SECRET || process.env.JWT_SECRET!,
+          signOptions: {
+            expiresIn: '7d',
+          },
+        };
+      },
     }),
   ],
   controllers: [AuthController],

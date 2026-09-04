@@ -15,8 +15,12 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return app server running success message', () => {
+      const response = appController.getHello();
+      expect(response.message).toBe(
+        `${process.env.APP_NAME} Server Runing Success!`,
+      );
+      expect(response.statusCode).toBe(200);
     });
   });
 });

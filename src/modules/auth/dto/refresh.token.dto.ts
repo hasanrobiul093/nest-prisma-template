@@ -1,14 +1,23 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class RefreshTokenDto {
-  @ApiProperty({ example: 'userId' })
-  @IsNotEmpty()
+  @ApiPropertyOptional({ example: 'uuid', description: 'User ID' })
+  @IsOptional()
   @IsString()
-  userId: string;
+  userId?: string;
+
+  @ApiPropertyOptional({ example: 'uuid', description: 'Alias for userId' })
+  @IsOptional()
+  @IsString()
+  id?: string;
 
   @ApiProperty({ example: 'refresh Token' })
   @IsNotEmpty()
   @IsString()
   refreshToken: string;
+
+  getTargetUserId(): string {
+    return (this.userId || this.id) as string;
+  }
 }

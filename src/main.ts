@@ -1,5 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, VersioningType, Logger } from '@nestjs/common';
+import {
+  ValidationPipe,
+  VersioningType,
+  Logger,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters';
@@ -27,8 +32,13 @@ export async function bootstrap() {
 
   const port = await getAvailablePort(configService.get<number>('PORT', 3000));
 
-  // Global prefix: all routes are served under /api/v1/<route>
-  app.setGlobalPrefix('api');
+  // Global prefix: all routes are served under /api/v1/<route> except base api (/)
+  app.setGlobalPrefix('api', {
+    exclude: [
+      { path: '', method: RequestMethod.GET },
+      { path: '/', method: RequestMethod.GET },
+    ],
+  });
 
   app.enableVersioning({
     type: VersioningType.URI,

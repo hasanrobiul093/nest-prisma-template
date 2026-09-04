@@ -10,8 +10,8 @@ export class ElevatorGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const { user } = context.switchToHttp().getRequest();
 
-    if (user.role !== 'ELEVATOR') {
-      throw new ForbiddenException('Only elevator can access');
+    if (user?.role !== 'ADMIN') {
+      throw new ForbiddenException('Access denied');
     }
 
     return true;

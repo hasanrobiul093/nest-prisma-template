@@ -51,7 +51,7 @@ export class MailService {
     name?: string,
   ): Promise<void> {
     const env = this.configService.get<IEnv>('env');
-    const appName = env?.APPLICATION.APP_NAME || 'Elevetor Service';
+    const appName = env?.APPLICATION.APP_NAME || 'Application';
 
     const subject = `Verify your account - ${appName}`;
     const displayName = name || 'User';
@@ -80,7 +80,7 @@ export class MailService {
     name?: string,
   ): Promise<void> {
     const env = this.configService.get<IEnv>('env');
-    const appName = env?.APPLICATION.APP_NAME || 'Elevetor Service';
+    const appName = env?.APPLICATION.APP_NAME || 'Application';
     const displayName = name || 'User';
     const subject = `Password Reset Request - ${appName}`;
 
@@ -116,7 +116,9 @@ export class MailService {
   ): Promise<void> {
     const env = this.configService.get<IEnv>('env');
     const fromName =
-      env?.SMTP_EMAIL_CONFIG.EMAIL_FROM_NAME || 'Elevetor Service';
+      env?.SMTP_EMAIL_CONFIG.EMAIL_FROM_NAME ||
+      env?.APPLICATION.APP_NAME ||
+      'Application';
     const fromEmail =
       env?.SMTP_EMAIL_CONFIG.EMAIL_FROM || 'no-reply@example.com';
 

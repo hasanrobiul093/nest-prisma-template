@@ -49,20 +49,6 @@ export const ERROR_MESSAGES = {
     DUPLICATE_ENTRY: 'This record already exists',
   },
 
-  // Payment
-  PAYMENT: {
-    PAYMENT_FAILED: 'Payment processing failed',
-    INSUFFICIENT_BALANCE: 'Insufficient balance',
-    INVALID_PAYMENT_METHOD: 'Invalid payment method',
-  },
-
-  // Booking
-  BOOKING: {
-    BOOKING_NOT_FOUND: 'Booking not found',
-    BOOKING_ALREADY_ACCEPTED: 'Booking has already been accepted',
-    BOOKING_CANNOT_BE_CANCELLED: 'Booking cannot be cancelled at this time',
-  },
-
   // General
   GENERAL: {
     INTERNAL_SERVER_ERROR: 'Internal server error. Please try again later',

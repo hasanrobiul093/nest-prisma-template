@@ -50,7 +50,7 @@ export function initializeAPM(
     const apmSecretToken = configService.get('APM_SECRET_TOKEN');
     if (apmServerUrl && apmSecretToken) {
       apm.start({
-        serviceName: 'service-marketplace-api',
+        serviceName: configService.get<string>('APP_NAME') || 'nest-api',
         secretToken: apmSecretToken,
         serverUrl: apmServerUrl,
         environment: nodeEnv,
@@ -133,18 +133,26 @@ export function setupRequestLogging(app: any, logger: Logger): void {
   });
 }
 
-export function setupSwagger(app: any, nodeEnv: string, port: number): void {
+export function setupSwagger(
+  app: any,
+  configService: ConfigService,
+  nodeEnv: string,
+  port: number,
+): void {
   if (nodeEnv === 'production') return;
 
+  const appName = configService.get<string>('APP_NAME') || 'Application API';
+  const appVersion = configService.get<string>('APP_VERSION') || '1.0.0';
+
   const config = new DocumentBuilder()
-    .setTitle('NestJS Prisma Template API')
+    .setTitle(`${appName} Documentation`)
     .setDescription(
-      'A production-ready NestJS + Prisma API template.\n\n' +
-        '**Base URL:** `http://localhost:{port}/api/v1`\n\n' +
+      `Documentation and interactive API specifications for ${appName}.\n\n` +
+        `**Base URL:** \`http://localhost:${port}/api/v1\`\n\n` +
         '**Auth:** Use the `POST /api/v1/auth/login` endpoint to obtain a Bearer token, ' +
         'then click **Authorize** above.',
     )
-    .setVersion('1.0.0')
+    .setVersion(appVersion)
     .addServer(`http://localhost:${port}`, 'Local Development')
     .addServer('/', 'Current Host')
     .addBearerAuth(
@@ -156,9 +164,6 @@ export function setupSwagger(app: any, nodeEnv: string, port: number): void {
       },
       'access-token',
     )
-    .addTag('Base', 'Base API & server health check')
-    .addTag('Auth', 'Authentication & authorization endpoints')
-    .addTag('User', 'User management endpoints')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

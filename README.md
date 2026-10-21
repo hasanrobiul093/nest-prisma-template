@@ -12,7 +12,7 @@ This template is packed with features to get your project off the ground quickly
 - **Authentication & Authorization:** 
   - JWT (JSON Web Token) based authentication.
   - Access and Refresh token flows for enhanced security.
-  - Role-based access control (RBAC) with predefined roles (`USER`, `ELEVATOR`, `ADMIN`, `SUPER_ADMIN`).
+  - Role-based access control (RBAC) with predefined roles (`USER`, `ADMIN`).
   - Passwords are securely hashed using `bcrypt`.
 - **Swagger API Documentation:** Auto-generated interactive API documentation available at `/docs`.
 - **Security Best Practices:**
@@ -53,7 +53,7 @@ Clone the repository and install the dependencies:
 ```bash
 # Clone the repository (or copy the template)
 git clone <repository-url>
-cd BackendDevelopmentTemplate
+cd nest-prisma-template
 
 # Install dependencies
 npm install

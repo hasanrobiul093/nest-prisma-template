@@ -17,27 +17,6 @@ export const SUCCESS_MESSAGES = {
     USER_DELETED: 'User deleted successfully',
   },
 
-  // Booking
-  BID: {
-    BOOKING_CREATED: 'Booking created successfully',
-    BOOKING_ACCEPTED: 'Booking accepted',
-    BOOKING_REJECTED: 'Booking rejected',
-    BOOKING_COMPLETED: 'Booking completed',
-    BOOKING_CANCELLED: 'Booking cancelled',
-  },
-
-  // Payment
-  PAYMENT: {
-    PAYMENT_SUCCESS: 'Payment processed successfully',
-    PAYMENT_REFUNDED: 'Payment refunded successfully',
-  },
-
-  // Review
-  REVIEW: {
-    REVIEW_SUBMITTED: 'Review submitted successfully',
-    REVIEW_UPDATED: 'Review updated successfully',
-  },
-
   // File
   FILE: {
     FILE_UPLOADED: 'File uploaded successfully',

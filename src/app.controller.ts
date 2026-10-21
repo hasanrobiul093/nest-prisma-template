@@ -28,7 +28,7 @@ export class AppController {
         statusCode: { type: 'number', example: 200 },
         message: {
           type: 'string',
-          example: 'Service Marketplace App Server Runing Success!',
+          example: 'Application Server Running Successfully!',
         },
         meta: { type: 'object', nullable: true, example: null },
         data: { type: 'object', nullable: true, example: null },

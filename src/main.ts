@@ -56,7 +56,7 @@ export async function bootstrap() {
 
   setupRateLimiting(app, configService, nodeEnv);
   setupRequestLogging(app, logger);
-  setupSwagger(app, nodeEnv, port);
+  setupSwagger(app, configService, nodeEnv, port);
 
   const server = await app.listen(port, '0.0.0.0');
 

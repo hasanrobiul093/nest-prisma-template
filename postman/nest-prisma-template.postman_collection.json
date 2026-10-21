@@ -1,8 +1,8 @@
 {
   "info": {
-    "_postman_id": "nest-prisma-template-collection",
-    "name": "NestJS Prisma Template API",
-    "description": "Complete API collection for the NestJS Prisma Template.\n\n**Base URL:** `{{baseUrl}}/api/v1`\n\n**How to use:**\n1. Import this collection.\n2. Set `baseUrl` in the environment (default: `http://localhost:3000`).\n3. Hit **Login** — `accessToken`, `userToken` or `adminToken` are set automatically based on the returned role.",
+    "_postman_id": "api-collection",
+    "name": "API Endpoints Collection",
+    "description": "Complete API collection.\n\n**Base URL:** `{{baseUrl}}/api/v1`\n\n**How to use:**\n1. Import this collection.\n2. Set `baseUrl` in the environment (default: `http://localhost:3000`).\n3. Hit **Login** — `accessToken`, `userToken` or `adminToken` are set automatically based on the returned role.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -31,7 +31,7 @@
               "name": "200 OK",
               "status": "OK",
               "code": 200,
-              "body": "{\n  \"statusCode\": 200,\n  \"message\": \"Service Marketplace Server Runing Success!\",\n  \"meta\": null,\n  \"data\": null,\n  \"timestamp\": \"2026-09-04T12:00:00.000Z\"\n}"
+              "body": "{\n  \"statusCode\": 200,\n  \"message\": \"Application Server Running Successfully!\",\n  \"meta\": null,\n  \"data\": null,\n  \"timestamp\": \"2026-09-04T12:00:00.000Z\"\n}"
             }
           ]
         }
@@ -280,7 +280,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"admin@servicemarketplace.com\",\n  \"password\": \"SuperSecurePassword123!\"\n}",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"SuperSecurePassword123!\"\n}",
               "options": { "raw": { "language": "json" } }
             }
           },
